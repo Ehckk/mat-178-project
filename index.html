@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAT-178 Project - Eric Miguel</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1>Traveling Salesman Problem</h1>
+    </header>
+    <main>
+        <div class="wrapper">
+            <canvas width="400" height="400"></canvas>
+            <div class="control_box">
+                <div class="field num_slider">
+                    <label for="node_count">Number of Points</label>
+                    <input type="range" value="7" min="4" max="9" name="node_count"/>
+                    <div class="num_input">
+                        <button class="spin dec">-</button>
+                        <input class="node_count" type="number" value="7" min="4" max="10" name="node_count"/>
+                        <button class="spin inc">+</button>
+                    </div>
+                </div>
+                <div class="field btn_large">
+                    <button class="shuffle">Shuffle Points</button>
+                </div>
+                <div class="field radio_list">
+                    <p>Algorithm</p>
+                    <div class="radio_input">
+                        <label for="naive">Brute Force</label>
+                        <input type="radio" checked="true" id="naive" name="algorithm">
+                    </div>
+                    <div class="radio_input">
+                        <label for="dijkstras">Dijkstra's Estimate</label>
+                        <input type="radio" id="dijkstras" name="algorithm">
+                    </div>
+                    <!-- <div class="radio_input">
+                        <label for="mst">MST Estimate</label>
+                        <input type="radio" id="mst" name="algorithm">
+                    </div> -->
+                    <div class="radio_input">
+                        <label for="k_nearest">K-Nearest Estimate</label>
+                        <input type="radio" id="k_nearest" name="algorithm">
+                    </div>
+                    <div class="field btn_large">
+                        <button class="run">Run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="results_box">
+            <div class="result">
+                <label for="algorithm">Algorithm Used: </label>
+                <input type="text" value="None" name="algorithm" readonly>
+            </div>
+            <div class="result">
+                <label for="edges">Number of Edges Drawn: </label>
+                <input type="text" value="0" name="edges" readonly>
+            </div>
+            <div class="result">
+                <label for="cycles">Number of Cycles Checked: </label>
+                <input type="text" value="0" name="cycles" readonly>
+            </div>
+            <div class="result">
+                <label for="shortest">Length of Shortest Path: </label>
+                <input type="text" value="0" name="shortest" readonly>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Eric Miguel</p>
+        <p>MAT-178</p>
+        <p>Spring 2023</p>
+    </footer>
+    <script src="./index.js"></script>
+</body>
+</html>
