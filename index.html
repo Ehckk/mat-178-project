@@ -14,13 +14,15 @@
     <main>
         <div class="wrapper">
             <canvas width="400" height="400"></canvas>
+            <div class="info_box">
+            </div>
             <div class="control_box">
                 <div class="field num_slider">
                     <label for="node_count">Number of Points</label>
-                    <input type="range" value="7" min="4" max="9" name="node_count"/>
+                    <input type="range" value="4" min="4" max="9" name="node_count"/>
                     <div class="num_input">
                         <button class="spin dec">-</button>
-                        <input class="node_count" type="number" value="7" min="4" max="10" name="node_count"/>
+                        <input class="node_count" type="number" value="4" min="4" max="10" name="node_count"/>
                         <button class="spin inc">+</button>
                     </div>
                 </div>
@@ -31,19 +33,23 @@
                     <p>Algorithm</p>
                     <div class="radio_input">
                         <label for="naive">Brute Force</label>
-                        <input type="radio" checked="true" id="naive" name="algorithm">
+                        <input type="radio" checked="true" id="naive" value="naive" name="algorithm">
                     </div>
                     <div class="radio_input">
-                        <label for="dijkstras">Dijkstra's Estimate</label>
-                        <input type="radio" id="dijkstras" name="algorithm">
+                        <label for="unique">No Repeat Cycles</label>
+                        <input type="radio" id="unique" value="unique" name="algorithm">
                     </div>
-                    <!-- <div class="radio_input">
+                    <div class="radio_input">
+                        <label for="dp">No Repeat Cycles + DP</label>
+                        <input type="radio" id="dp" value="dp" name="algorithm">
+                    </div>
+                    <div class="radio_input">
                         <label for="mst">MST Estimate</label>
-                        <input type="radio" id="mst" name="algorithm">
-                    </div> -->
+                        <input type="radio" id="mst" value="mst" name="algorithm">
+                    </div>
                     <div class="radio_input">
-                        <label for="k_nearest">K-Nearest Estimate</label>
-                        <input type="radio" id="k_nearest" name="algorithm">
+                        <label for="nearest">Nearest Neighbor Estimate</label>
+                        <input type="radio" id="nearest" value="nearest" name="algorithm">
                     </div>
                     <div class="field btn_large">
                         <button class="run">Run</button>
@@ -65,8 +71,12 @@
                 <input type="text" value="0" name="cycles" readonly>
             </div>
             <div class="result">
-                <label for="shortest">Length of Shortest Path: </label>
+                <label for="shortest">Length of Shortest Found Path: </label>
                 <input type="text" value="0" name="shortest" readonly>
+            </div>
+            <div class="result">
+                <label for="actual">Actual Length of Shortest Path: </label>
+                <input type="text" value="0" name="actual" readonly>
             </div>
         </div>
     </main>
@@ -75,6 +85,9 @@
         <p>MAT-178</p>
         <p>Spring 2023</p>
     </footer>
+    <script src="./scripts/info.js"></script>
+    <script src="./scripts/draw.js"></script>
+    <script src="./scripts/init.js"></script>
     <script src="./index.js"></script>
 </body>
 </html>
