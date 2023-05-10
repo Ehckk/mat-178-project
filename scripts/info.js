@@ -1,7 +1,7 @@
 const info = {
     'naive': [
         'Loop over every possible Hamiltonian Cycle', 
-        'Uses Recursive Backtracking'
+        'Choose the cycle with the lowest weight to get the shortest path'
     ],
     'unique': [
         'Works similar to the brute force approach, with one key difference',
@@ -14,14 +14,10 @@ const info = {
     ],
     'nearest': [
         'Do not loop over cycles', 
-        'Instead'
+        'Instead, estimate the shortest path by starting at a vertex and adding the shortest edge that connects to an unvisted vertex to the cycle',
+        'When all vertices have been visited, return to the starting vertex and you will have an estimate for the shortest path',
+        'Use the minimum spanning tree of the graph as a lower bound for the shortest tour'
     ],
-    'mst': [
-        'Do not loop over cycles',
-        'Instead, using Prim\'s Algorithm, find the minimum weight spanning tree of the graph, starting from node 0', 
-        'Double the weight of the found MST',
-        'The weight of the shortest possible Hamiltonian Cycle will be no more than double this number'
-    ]
 }
 
 function setInfoBox(key) {

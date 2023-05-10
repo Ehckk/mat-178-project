@@ -1,3 +1,5 @@
+
+
 function randomValue(minValue, maxValue) {
     return minValue + Math.ceil(Math.random() * (maxValue - minValue))
 } 
@@ -28,6 +30,7 @@ function initPoints(numNodes) {
     shuffle(points)
     return points
 }
+
 
 function initAdjMatrix(numNodes) {
     const adjMatrix = []
@@ -79,6 +82,13 @@ function init() {
     getBestDistAndPath(0, [0], 0)
     actualShortest.value = actualBestDist
     
+    prims()
+    let mstTotal = 0
+    for (const [i, j] of mst) {
+        mstTotal += graph[i][j]
+    }
+    mstWeight.value = mstTotal
+
     currentPath = []
     currentDist = 0
     drawGraph()

@@ -1,5 +1,6 @@
 let graph = null
 let points = []
+let mst = null
 let numNodes = 4
 let minNodes = 4
 let maxNodes = 9
@@ -15,6 +16,7 @@ const selectedAlgorithm = document.querySelector('.result > input[name=algorithm
 const drawnEdges = document.querySelector('.result > input[name=edges]')
 const checkedCycles = document.querySelector('.result > input[name=cycles]')
 const shortestPathLength = document.querySelector('.result > input[name=shortest]')
+const mstWeight = document.querySelector('.result > input[name=mst]')
 const actualShortest = document.querySelector('.result > input[name=actual]')
 
 const toDisable = "input[type=range], input[type=number], button"
@@ -33,13 +35,13 @@ let pathOrder = []
 let stack = []
 
 function bruteForce(path=[0]) {
+    stack.push([...path])
     if (path.length === numNodes) {
         stack.push([...path, 0])
         return
     }
     for (let v2 = 0; v2 < numNodes; v2++) {
         if (path.some(v => v === v2)) continue
-        stack.push([...path])
         bruteForce([...path, v2])
         stack.push([...path])
     }
@@ -47,6 +49,7 @@ function bruteForce(path=[0]) {
 
 const bruteForceSet = new Set();
 function noRepeats(path=[0]) {
+    stack.push([...path])
     if (path.length === numNodes) {
         const pathCode = path.slice(1).join("")
         if (bruteForceSet.has(pathCode.split("").reverse().join(""))) return
@@ -57,13 +60,13 @@ function noRepeats(path=[0]) {
     }
     for (let v2 = 0; v2 < numNodes; v2++) {
         if (path.some(v => v === v2)) continue
-        stack.push([...path])
         noRepeats([...path, v2])
         stack.push([...path])
     }   
 }
 
 function noRepeatsAndDP(v1, path=[0], current=0) {
+    stack.push([...path])
     if (path.length === numNodes) {
         const pathCode = path.slice(1).join("")
         if (bruteForceSet.has(pathCode.split("").reverse().join(""))) return
@@ -77,15 +80,53 @@ function noRepeatsAndDP(v1, path=[0], current=0) {
     for (let v2 = 0; v2 < numNodes; v2++) {
         if (path.some(v => v === v2)) continue
         if (current + graph[v1][v2] > bestDistFound) continue
-        stack.push([...path])
         noRepeatsAndDP(v2, [...path, v2], current + graph[v1][v2])
         stack.push([...path])
     }   
 }
 
+function nearestNeighbors(path=[0]) {
+    stack.push([...path])
+    while (path.length < graph.length) {
+        const v1 = path[path.length - 1]
+        const edges = []
+        for (let v2 = 0; v2 < graph.length; v2++) {
+            if (v1 === v2) continue
+            if (path.some(v => v === v2)) continue
+            edges.push([v1, v2])
+            stack.push([...path, v2])
+        }
+        edges.sort((a, b) => graph[a[0]][a[1]] - graph[b[0]][b[1]])
+        path.push(edges[0][1])
+        stack.push([...path])
+    }
+    path.push(0)
+}
+
+function prims() { // To get the MST
+    mst = []
+    const vertices = [0]
+    let edges = []
+    
+    while (vertices.length < graph.length) {
+        edges = []
+        for (const i of vertices) {
+            for (let j = 0; j < graph.length; j++) {
+                if (i === j) continue
+                if (vertices.some(v => v === j) && vertices.some(v => v === i)) continue
+                edges.push([i, j])
+            }
+        }
+        edges.sort((a, b) => graph[a[0]][a[1]] - graph[b[0]][b[1]])
+        mst.push(edges[0])
+        vertices.push(edges[0][1])
+    }
+}
+
 let currentPath = []
 let bestPathFound = []
 let actualBestPath = []
+let estimate = []
 
 let currentDist = 0
 let bestDistFound = 1e9
@@ -143,6 +184,8 @@ numNodesDecBtn.addEventListener('click', () => {
 function resetMetrics() {
     pathOrder = []
     stack = []
+}
+function resestBestPaths() {
     bestPathFound = []
     bestDistFound = 1e9
 }
@@ -157,22 +200,24 @@ runBtn.addEventListener('click', () => {
     shortestPathLength.value = bestDistFound
     switch (selected) {
         case 'naive':
+            resestBestPaths()
             bruteForce()
             break;
         case 'unique':
+            resestBestPaths()
             bruteForceSet.clear()
             noRepeats()
             break;
         case 'dp':
+            resestBestPaths()
             bruteForceSet.clear()
             noRepeatsAndDP(0)
             bestDistFound = 1e9
             break;
-        case 'nearest':
-            break;
-        case 'mst':
-            break;
-
+        // case 'nearest':
+        //     estimate = []
+        //     nearestNeighbors()
+        //     break;
     }
     while (stack.length > 0) {
         pathOrder.push(stack.pop())

@@ -22,6 +22,7 @@
     --a-black: hsla(200, 5%, 5%, .5);
     --a-yellow: hsl(45, 70%, 45%);
     --a-green: hsl(130, 70%, 45%);
+    --a-indigo: hsla(160, 70%, 25%);
 }
 
 * {

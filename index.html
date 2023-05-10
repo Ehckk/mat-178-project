@@ -40,17 +40,17 @@
                         <input type="radio" id="unique" value="unique" name="algorithm">
                     </div>
                     <div class="radio_input">
-                        <label for="dp">No Repeat Cycles + DP</label>
+                        <label for="dp">Dynammic Programming</label>
                         <input type="radio" id="dp" value="dp" name="algorithm">
                     </div>
-                    <div class="radio_input">
-                        <label for="mst">MST Estimate</label>
-                        <input type="radio" id="mst" value="mst" name="algorithm">
-                    </div>
-                    <div class="radio_input">
+                    <!-- <div class="radio_input">
                         <label for="nearest">Nearest Neighbor Estimate</label>
                         <input type="radio" id="nearest" value="nearest" name="algorithm">
                     </div>
+                    <div class="radio_input">
+                        <label for="christofides">Christofides Algorithm</label>
+                        <input type="radio" id="christofides" value="christofides" name="algorithm">
+                    </div> -->
                     <div class="field btn_large">
                         <button class="run">Run</button>
                     </div>
@@ -71,11 +71,15 @@
                 <input type="text" value="0" name="cycles" readonly>
             </div>
             <div class="result">
-                <label for="shortest">Length of Shortest Found Path: </label>
+                <label for="shortest">Length of Shortest Found Cycle: </label>
                 <input type="text" value="0" name="shortest" readonly>
             </div>
             <div class="result">
-                <label for="actual">Actual Length of Shortest Path: </label>
+                <label for="mst">Weight of MST: </label>
+                <input type="text" value="0" name="mst" readonly>
+            </div>
+            <div class="result">
+                <label for="actual">Actual Length of Shortest Cycle: </label>
                 <input type="text" value="0" name="actual" readonly>
             </div>
         </div>

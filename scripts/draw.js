@@ -8,7 +8,8 @@ const colors = {
     'white': getComputedStyle(root).getPropertyValue('--s-900'),
     'green': getComputedStyle(root).getPropertyValue('--a-green'),
     'yellow': getComputedStyle(root).getPropertyValue('--a-yellow'),
-    'red': getComputedStyle(root).getPropertyValue('--a-red')
+    'red': getComputedStyle(root).getPropertyValue('--a-red'),
+    'indigo': getComputedStyle(root).getPropertyValue('--a-indigo')
 }
 const interval = 1
 const vSize = 10
@@ -72,7 +73,11 @@ function drawGraph() {
             drawEdge(ctx, v1, v2)
         }
     }
-    drawPath(ctx, actualBestPath, 2.5, colors['green'])
+    drawPath(ctx, actualBestPath, 2.5, colors['indigo'])
+    // ctx.lineWidth = 2.5
+    // for (const [v1, v2] of mst) {
+    //     drawEdge(ctx, v1, v2,  colors['indigo'])
+    // }
     
     if (bestPathFound.length > 0) {
         drawPath(ctx, bestPathFound, 2, colors['yellow'])
