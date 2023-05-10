@@ -261,7 +261,6 @@ input[type=number] {
     outline: none;
     box-shadow: inset 0px -1px 3px var(--s-100);
     text-align: center;
-    user-select: all;
 }
 input[type=radio] {
     appearance: none;
